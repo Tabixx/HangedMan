@@ -9,6 +9,9 @@ using namespace std;
 
 string wybierzSlowo(const vector<string>& slowa);
 void rysujWisielca(int proby);
+void aktualizujPunkty(int& punkty, int proby, time_t czasStart);
+void zapiszWynik(const string& gracz, int punkty);
+void pokazNajlepszeWyniki();
 
 int main() {
     vector<string> slowa;
@@ -91,3 +94,25 @@ void rysujWisielca(int proby) {
     cout << rysunki[proby] << endl;
 }
 
+void aktualizujPunkty(int& punkty, int proby, time_t czasStart) {
+    time_t czasKoniec = time(0);
+    int czasGry = static_cast<int>(difftime(czasKoniec, czasStart));
+    punkty += max(0, 100 - proby * 10 - czasGry);
+}
+
+void zapiszWynik(const string& gracz, int punkty) {
+    ofstream plik("highscores.txt", ios::app);
+    plik << gracz << " " << punkty << endl;
+    plik.close();
+}
+
+void pokazNajlepszeWyniki() {
+    ifstream plik("highscores.txt");
+    string linia;
+
+    cout << "\nNajlepsze wyniki:" << endl;
+    while (getline(plik, linia)) {
+        cout << linia << endl;
+    }
+    plik.close();
+}
