@@ -30,3 +30,33 @@ time_t czasStart = time(0);
     cout << "Witaj w grze Wisielec!" << endl;
     return 0;
 }
+ while (proby < 7 && !wygrana) {
+    cout << "\nHaslo: " << ukryte << endl;
+    rysujWisielca(proby);
+
+    char litera;
+    cout << "Podaj litere: ";
+    cin >> litera;
+
+    if (haslo.find(litera) != string::npos) {
+        for (size_t i = 0; i < haslo.length(); ++i) {
+            if (haslo[i] == litera) {
+                ukryte[i] = litera;
+            }
+        }
+        if (ukryte == haslo) {
+            wygrana = true;
+        }
+    }
+    else {
+        proby++;
+    }
+}
+
+if (wygrana) {
+    cout << "\nWoo! Gratulacje! Zgadles haslo!! " << haslo << endl;
+    aktualizujPunkty(punkty, proby, czasStart);
+}
+else {
+    cout << "\nHaha! Przegrales! Haslo to: " << haslo << endl;
+}
