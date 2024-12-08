@@ -10,7 +10,6 @@ using namespace std;
 string wybierzSlowo(const vector<string>& slowa);
 void rysujWisielca(int proby);
 
-
 int main() {
     vector<string> slowa;
     ifstream plik("words.txt");
@@ -78,3 +77,17 @@ string wybierzSlowo(const vector<string>& slowa) {
     srand(time(0));
     return slowa[rand() % slowa.size()];
 }
+
+void rysujWisielca(int proby) {
+    const vector<string> rysunki = {
+        "  +---+\n      |\n      |\n      |\n     ===",
+        "  +---+\n  O   |\n      |\n      |\n     ===",
+        "  +---+\n  O   |\n  |   |\n      |\n     ===",
+        "  +---+\n  O   |\n /|   |\n      |\n     ===",
+        "  +---+\n  O   |\n /|\\  |\n      |\n     ===",
+        "  +---+\n  O   |\n /|\\  |\n /    |\n     ===",
+        "  +---+\n  O   |\n /|\\  |\n / \\  |\n     ==="
+    };
+    cout << rysunki[proby] << endl;
+}
+
