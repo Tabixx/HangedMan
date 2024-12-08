@@ -1,3 +1,4 @@
 # HangedMan
 
-Hello, it's a test
+To moja wersja gry Wisielec
+Miłej gierki!!
