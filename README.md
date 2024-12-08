@@ -1,4 +1,4 @@
 # HangedMan
 
-To moja wersja gry Wisielec
+To moja wersja gry Wisielec 
 Miłej gierki!!
