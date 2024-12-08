@@ -8,57 +8,68 @@
 using namespace std;
 
 string wybierzSlowo(const vector<string>& slowa);
+void rysujWisielca(int proby);
+
 
 int main() {
     vector<string> slowa;
-ifstream plik("words.txt");
-string slowo;
+    ifstream plik("words.txt");
+    string slowo;
 
-while (getline(plik, slowo)) {
-    slowa.push_back(slowo);
-}
-plik.close();
-if (slowa.empty()) {
-    cout << "Brak dostepnych slow do gry." << endl;
-    return 1;
-}
+    while (getline(plik, slowo)) {
+        slowa.push_back(slowo);
+    }
+    plik.close();
 
-string haslo = wybierzSlowo(slowa);
-string ukryte(haslo.length(), '_');
-int punkty = 0, proby = 0;
-bool wygrana = false;
-time_t czasStart = time(0);
+    if (slowa.empty()) {
+        cout << "Brak dostepnych slow do gry." << endl;
+        return 1;
+    }
+
+    string gracz;
+    cout << "Podaj swoje imie: ";
+    cin >> gracz;
+
+    string haslo = wybierzSlowo(slowa);
+    string ukryte(haslo.length(), '_');
+    int punkty = 0, proby = 0;
+    bool wygrana = false;
+    time_t czasStart = time(0);
 
     cout << "Witaj w grze Wisielec!" << endl;
-    return 0;
-}
- while (proby < 7 && !wygrana) {
-    cout << "\nHaslo: " << ukryte << endl;
-    rysujWisielca(proby);
 
-    char litera;
-    cout << "Podaj litere: ";
-    cin >> litera;
+    while (proby < 7 && !wygrana) {
+        cout << "\nHaslo: " << ukryte << endl;
+        rysujWisielca(proby);
 
-    if (haslo.find(litera) != string::npos) {
-        for (size_t i = 0; i < haslo.length(); ++i) {
-            if (haslo[i] == litera) {
-                ukryte[i] = litera;
+        char litera;
+        cout << "Podaj litere: ";
+        cin >> litera;
+
+        if (haslo.find(litera) != string::npos) {
+            for (size_t i = 0; i < haslo.length(); ++i) {
+                if (haslo[i] == litera) {
+                    ukryte[i] = litera;
+                }
+            }
+            if (ukryte == haslo) {
+                wygrana = true;
             }
         }
-        if (ukryte == haslo) {
-            wygrana = true;
+        else {
+            proby++;
         }
     }
-    else {
-        proby++;
-    }
-}
 
-if (wygrana) {
-    cout << "\nWoo! Gratulacje! Zgadles haslo!! " << haslo << endl;
-    aktualizujPunkty(punkty, proby, czasStart);
-}
-else {
-    cout << "\nHaha! Przegrales! Haslo to: " << haslo << endl;
+    if (wygrana) {
+        cout << "\nWoo! Gratulacje! Zgadles haslo!! " << haslo << endl;
+        aktualizujPunkty(punkty, proby, czasStart);
+    }
+    else {
+        cout << "\nHaha! Przegrales! Haslo to: " << haslo << endl;
+    }
+
+    zapiszWynik(gracz, punkty);
+    pokazNajlepszeWyniki();
+    return 0;
 }
