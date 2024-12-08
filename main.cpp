@@ -73,3 +73,8 @@ int main() {
     pokazNajlepszeWyniki();
     return 0;
 }
+
+string wybierzSlowo(const vector<string>& slowa) {
+    srand(time(0));
+    return slowa[rand() % slowa.size()];
+}
